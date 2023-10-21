@@ -72,7 +72,15 @@ public class DynamoDbTableCreator
 
     private async Task<bool> DoesTableExistAsync(string tableName)
     {
-         var tables = await _dynamoDbClient.ListTablesAsync();
-        return tables.TableNames.Contains(tableName);
+        try
+        {
+            var tables = await _dynamoDbClient.ListTablesAsync();
+            return tables.TableNames.Contains(tableName);
+        }
+        catch (Exception ex)
+        {
+
+            throw;
+        }
     }
 }

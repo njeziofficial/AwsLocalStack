@@ -1,6 +1,8 @@
 using Amazon.DynamoDBv2;
 using Amazon.DynamoDBv2.DataModel;
+using AwsLocalStack.Contracts;
 using AwsLocalStack.Helpers;
+using AwsLocalStack.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -28,6 +30,8 @@ builder.Services.AddSingleton<IAmazonDynamoDB>(x =>
 builder.Services.AddScoped<IDynamoDBContext, DynamoDBContext>();
 builder.Services.Initialize(builder.Services.BuildServiceProvider()).GetAwaiter().GetResult();
 //ends here...
+
+builder.Services.AddScoped<IUserService, UserService>();
 
 var app = builder.Build();
 
